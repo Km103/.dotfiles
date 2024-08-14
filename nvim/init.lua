@@ -2,8 +2,7 @@
 
 ===================================================================
 =================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
+===================================================================== ========                                    .-----.          ========
 ========         .----------------------.   | === |          ========
 ========         |.-""""""""""""""""""-.|   |-----|          ========
 ========         ||                    ||   | === |          ========
@@ -102,7 +101,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -189,6 +188,10 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+vim.opt.tabstop = 8 -- Always 8 (see :h tabstop)
+vim.opt.softtabstop = 4 -- What you expecting
+vim.opt.shiftwidth = 4 -- What you expecting
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -290,7 +293,7 @@ require('lazy').setup({
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+        ['<LEADER>S'] = { NAME = '[S]EARCH', _ = 'WHICH_KEY_IGNORE' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
       }
     end,
@@ -546,7 +549,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {},
-        gopls = {},
+        -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -602,21 +605,21 @@ require('lazy').setup({
           end,
         },
       }
-      local util = require 'lspconfig.util'
-      require('lspconfig').gopls.setup {
-        -- ...some other setups
-        root_dir = function(fname)
-          -- see: https://github.com/neovim/nvim-lspconfig/issues/804
-          local mod_cache = vim.trim(vim.fn.system 'go env GOMODCACHE')
-          if fname:sub(1, #mod_cache) == mod_cache then
-            local clients = vim.lsp.get_active_clients { name = 'gopls' }
-            if #clients > 0 then
-              return clients[#clients].config.root_dir
-            end
-          end
-          return util.root_pattern 'go.work'(fname) or util.root_pattern('go.mod', '.git')(fname)
-        end,
-      }
+      -- local util = require 'lspconfig.util'
+      -- require('lspconfig').gopls.setup {
+      --   -- ...some other setups
+      --   root_dir = function(fname)
+      --     -- see: https://github.com/neovim/nvim-lspconfig/issues/804
+      --     local mod_cache = vim.trim(vim.fn.system 'go env GOMODCACHE')
+      --     if fname:sub(1, #mod_cache) == mod_cache then
+      --       local clients = vim.lsp.get_active_clients { name = 'gopls' }
+      --       if #clients > 0 then
+      --         return clients[#clients].config.root_dir
+      --       end
+      --     end
+      --     return util.root_pattern 'go.work'(fname) or util.root_pattern('go.mod', '.git')(fname)
+      --   end,
+      -- }
     end,
   },
   { -- Autoformat
@@ -880,10 +883,10 @@ require('lazy').setup({
     },
   },
 })
-local set = vim.opt -- set options
-set.tabstop = 4
-set.softtabstop = 4
-set.shiftwidth = 4
+-- local set = vim.opt -- set options
+-- set.tabstop = 4
+-- set.softtabstop = 4
+-- set.shiftwidth = 4
 -- loading module to provide config for a server following steps from guide here
 -- https://github.com/neovim/nvim-lspconfig/blob/ede4114e1fd41acb121c70a27e1b026ac68c42d6/doc/lspconfig.txt#L326
 
